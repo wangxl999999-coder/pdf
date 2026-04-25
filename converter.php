@@ -188,7 +188,7 @@ function handleMergeImages() {
             continue;
         }
         
-        $sanitizedName = sanitizeFileName($originalName);
+        $sanitizedName = sanitizeFilename($originalName);
         $tempPath = UPLOAD_DIR . $uniqueId . '_img_' . $i . '_' . $sanitizedName;
         
         if (move_uploaded_file($files['tmp_name'][$i], $tempPath)) {
@@ -223,10 +223,6 @@ function handleMergeImages() {
     } else {
         echo json_encode(['success' => false, 'message' => $result['message']]);
     }
-}
-
-function sanitizeFileName($filename) {
-    return preg_replace('/[^a-zA-Z0-9._-]/', '_', $filename);
 }
 
 function convertWordToPdf($inputPath, $outputPath, $extension) {
