@@ -1,0 +1,42 @@
+Options -Indexes
+Options +FollowSymLinks
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+</IfModule>
+
+<FilesMatch "\.(db|log)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+<Files "config.php">
+    Order allow,deny
+    Deny from all
+</Files>
+
+<Directory "uploads/">
+    Options -Indexes
+    <IfModule mod_php.c>
+        php_flag engine off
+    </IfModule>
+</Directory>
+
+<Directory "data/">
+    Order allow,deny
+    Deny from all
+</Directory>
+
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+php_flag display_errors Off
+php_flag log_errors On
+php_value upload_max_filesize 100M
+php_value post_max_size 100M
+php_value max_execution_time 300
+php_value max_input_time 300
